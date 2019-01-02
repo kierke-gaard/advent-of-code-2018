@@ -4,15 +4,15 @@ from operator import mul
 
 def occurring_frequencies(frequencies, items):
     counts = dict(Counter(items)).values()
-    return list(set([f for f in frequencies if f in counts]))
+    return set(f for f in frequencies if f in counts)
 
 def checksum(items_list):
     frequencies = [2, 3]
-    occurrences = map(partial(occurring_frequencies, frequencies),
-                      items_list)
-    counts = Counter(sum(occurrences, [])).values()
+    occurrences = [f for items in items_list
+                     for f in occurring_frequencies(frequencies, items)]
+    counts = Counter(occurrences).values()
     return reduce(mul, counts)
 
-items_list = list(map(list, str.split("abc abbccc accc aa")))
-checksum(items_list)
+items_list = [list(items) for items in str.split("abc abbccc accc aa")]
+print(checksum(items_list))
 # => 4
