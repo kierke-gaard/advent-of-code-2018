@@ -1,0 +1,21 @@
+# keyboard shortcuts
+ 
+1) emacs friendly keymaps
+
+
+# Windows
+C-o for window switches (from emacs)
+C-Tab to switch buffer within a window (from windows)
+
+
+# Text-Editor
+disable quick suggestions
+C-' show quick suggestions
+C-S Space show parameter hints
+
+# Python
+C-` toggle interpreter window
+C-t t run test of file
+C-t a of all files
+C-t s show unit test output
+C-; (un)comment

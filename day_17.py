@@ -107,3 +107,31 @@ def vertical_flow(spring: P, grid: Grid, water: set):
        horizontal_flow(new_spring, grid, water)
     else:
         water |= set(column(spring, grid.size.y))
+
+def horizontal_flow_functional(spring: P, grid: Grid, water: frozenset):
+    # Returns water
+    left, left_is_spring = horizontal_endpoint(
+                            spring, 'left', grid, water)
+    water = water | frozenset(row(spring, left.x))
+    right, right_is_spring = horizontal_endpoint(
+                              spring, 'right', grid, water)
+    water = water | frozenset(row(spring, right.x))
+    if left_is_spring:
+        water = water | vertical_flow_functional(P(left.x, spring.y), grid, water)
+    if right_is_spring:
+        water = water | vertical_flow_functional(P(right.x, spring.y), grid, water)
+    if not left_is_spring and not right_is_spring:
+        spring_one_level_up = P(spring.x, spring.y - 1)
+        water = water | horizontal_flow_functional(spring_one_level_up, grid, water)
+    return water
+
+def vertical_flow_functional(spring: P, grid: Grid, water: frozenset):
+    # Returns water
+    y_first_clay = maybe_first_clay_layer(spring, grid.clay)
+    if y_first_clay:
+       water_level = y_first_clay - 1
+       new_spring = P(spring.x, water_level)
+       water = water | frozenset(column(spring, water_level))
+       return horizontal_flow_functional(new_spring, grid, water)
+    else:
+       return frozenset(column(spring, grid.size.y))

@@ -51,3 +51,11 @@ class TestFlow(unittest.TestCase):
         self.assertEqual(
             water,
             {P(x=1, y=2), P(x=5, y=9), P(x=3, y=2), P(x=1, y=3), P(x=5, y=4), P(x=3, y=3), P(x=5, y=5), P(x=5, y=6), P(x=5, y=7), P(x=2, y=3), P(x=2, y=2), P(x=4, y=2), P(x=1, y=0), P(x=5, y=2), P(x=1, y=1), P(x=5, y=8), P(x=5, y=3)})
+    
+    def test_vertical_flow_functional(self):
+        g = grid_1()
+        print(grid_str(g,vertical_flow_functional(P(1,0), g, frozenset())))
+        self.assertEqual(
+            vertical_flow_functional(P(1,0), g, frozenset()),
+            {P(x=1, y=2), P(x=5, y=9), P(x=3, y=2), P(x=1, y=3), P(x=5, y=4), P(x=3, y=3), P(x=5, y=5), P(x=5, y=6), P(x=5, y=7), P(x=2, y=3), P(x=2, y=2), P(x=4, y=2), P(x=1, y=0), P(x=5, y=2), P(x=1, y=1), P(x=5, y=8), P(x=5, y=3)})
+        
